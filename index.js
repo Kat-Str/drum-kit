@@ -8,11 +8,15 @@ buttons.forEach(function (button) {
   button.addEventListener("click", function () {
     var soundType = button.getAttribute("sound-type");
     playSound(soundType);
+    buttonAnimation(button.innerHTML);
   });
 });
 
 document.addEventListener("keydown", function (event) {
   var pressedKey = event.key;
+
+  buttonAnimation(event.key);
+
   switch (pressedKey) {
     case "w":
       var tom1 = new Audio("./sounds/tom-1.mp3");
@@ -53,3 +57,11 @@ document.addEventListener("keydown", function (event) {
       console.log(pressedKey);
   }
 });
+
+function buttonAnimation(currentKey) {
+  var activeButton = document.querySelector("." + currentKey);
+  activeButton.classList.add("pressed");
+  setTimeout(() => {
+    activeButton.classList.remove("pressed");
+  }, 200);
+}
